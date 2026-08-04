@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会走动的小狗</title>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(#87ceeb 0%, #dff5ff 70%, #7ec850 70%);
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 5px #333;
+        }
+
+        #dog {
+            position: absolute;
+            left: 20px;
+            bottom: 60px;
+            font-size: 90px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.15s;
+        }
+
+        .jump {
+            animation: jump 0.6s ease;
+        }
+
+        @keyframes jump {
+            0% {
+                bottom: 60px;
+            }
+
+            50% {
+                bottom: 220px;
+            }
+
+            100% {
+                bottom: 60px;
+            }
+        }
+
+        #message {
+            position: absolute;
+            top: 100px;
+            width: 100%;
+            text-align: center;
+            font-size: 22px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>我的小狗乐园</h1>
+
+    <div id="message">点击小狗，它会跳起来！</div>
+
+    <div id="dog">🐕</div>
+
+    <script>
+        const dog = document.getElementById("dog");
+
+        let position = 20;
+        let speed = 3;
+        let direction = 1;
+
+        function moveDog() {
+            position = position + speed * direction;
+
+            const maxPosition = window.innerWidth - dog.offsetWidth;
+
+            if (position >= maxPosition) {
+                direction = -1;
+                dog.style.transform = "scaleX(-1)";
+            }
+
+            if (position <= 0) {
+                direction = 1;
+                dog.style.transform = "scaleX(1)";
+            }
+
+            dog.style.left = position + "px";
+
+            requestAnimationFrame(moveDog);
+        }
+
+        dog.addEventListener("click", function () {
+            dog.classList.remove("jump");
+
+            void dog.offsetWidth;
+
+            dog.classList.add("jump");
+        });
+
+        moveDog();
+    </script>
+
+</body>
+
+</html>
